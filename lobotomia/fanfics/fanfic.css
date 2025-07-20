@@ -23,9 +23,14 @@ body {
 }
 
 pre {
-    font-family: var(--font-family);
-    padding: 0;
-    margin: 0;
+  font-family: var(--font-family);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 800px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Pasek postępu */
@@ -86,6 +91,19 @@ header p {
 main {
   max-width: 800px;
   margin: 0 auto 0;
+}
+
+article {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 0;
+  text-align: justify;
+}
+
+article h2 {
+  font-size: 2rem;
+  color: var(--accent-color);
+  text-align: center;
 }
 
 article p {
