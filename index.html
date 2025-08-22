@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Pokemon | slumberous.neocities.org</title>
+    <style>
+        #random-pokemon {
+            width: 248px;
+            height: 193px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #pokemon-title {
+            color: #0582CA;
+            text-align: center;
+        }
+
+        #pokemon-sprite {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: 0 auto 0;
+        }
+
+        #pokemon-info {
+            text-align: center;
+            font-size: 11px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="random-pokemon">
+        <h3 id="pokemon-title"></h3>
+        <img src="" alt="" id="pokemon-sprite">
+        <p id="pokemon-info"></p>
+    </div>
+
+    <script type="module">
+async function getRandomPokemon() {
+    const url = "https://xtakk.github.io/assets/pokedex.json";
+    try {
+        const resp = await fetch(url);
+        if (!resp.ok) {
+            console.error(`Error when fetching pokemon: ${resp.statusText}`)
+        }
+        const pokemons = await resp.json();
+        const pokemonContainer = document.getElementById('pokemon-container');
+        const pokemonTitle = document.getElementById('pokemon-title');
+        const pokemonSprite = document.getElementById('pokemon-sprite');
+        const pokemonInfo = document.getElementById('pokemon-info');
+        const pokemon = pokemons[Math.round(Math.random() * pokemons.length)];
+        const getStats = (pkmn) => {
+            if (pkmn.base) {
+                return `
+                <span style="font-size:6px !important;">
+                    <b>HP:</b> ${pkmn.base["HP"]} &middot; <b>ATK:</b> ${pkmn.base["Attack"]} &middot; <b>DEF:</b> ${pkmn.base["Defense"]} &middot; <b>SATK:</b> ${pkmn.base["Sp. Attack"]} &middot; <b>SDEF:</b> ${pkmn.base["Sp. Defense"]} &middot; <b>SPD:</b> ${pkmn.base["Speed"]}
+                </span>
+                `;
+            } else {
+                return "..."
+            }
+        }
+        pokemonTitle.innerText = pokemon.name.english;
+        pokemonSprite.src = pokemon.image.thumbnail;
+        pokemonSprite.alt = `${pokemon.name.english} Sprite`;
+        pokemonInfo.innerHTML = `
+            ${pokemon.profile.height} &middot; ${pokemon.profile.weight} | Types: ${pokemon.type.join(", ")}
+            <br>
+            <span style="font-size:9px !important;">
+                <b>Species:</b> ${pokemon.species} 
+                <br><b>Gender Ratio:</b> ${pokemon.profile.gender}
+            </span>
+            <br>
+            ${getStats(pokemon)}
+        `;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+await getRandomPokemon();
+    </script>
+</body>
+</html>

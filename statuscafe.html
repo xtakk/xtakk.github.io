@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xtak's status on status.cafe</title>
+    <style>
+        #status {
+            width: 250px !important;
+        }
+
+        #statuscafe {
+            font-size: 9px;
+            padding: 0 10px;
+        }
+    
+        #statuscafe-username, #statuscafe-content {
+            display: inline;
+        }
+    
+        #statuscafe-username::after {
+            content: ": "
+        }
+    </style>
+</head>
+<body>
+    <p style="margin-bottom: 0;">
+        <span style="font-size: 12px;font-weight: 700;">Status:</span><br>
+        <div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div><script src="https://status.cafe/current-status.js?name=xtak" defer></script>
+    </p>
+</body>
+</html>
